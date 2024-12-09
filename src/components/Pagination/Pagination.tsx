@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 interface PaginationProps {
-  total: string[];
+  total: number;
   perPage: number;
   currentPage: number;
   onPageChange: (page: number) => void;
@@ -14,7 +14,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
 }) => {
   const pages = Array.from(
-    { length: Math.ceil(total.length / perPage) },
+    { length: Math.ceil(total / perPage) },
     (_, i) => i + 1,
   );
 
@@ -81,14 +81,14 @@ export const Pagination: React.FC<PaginationProps> = ({
         </li>
       </ul>
       <ul>
-        {total
+        {Array.from({ length: total }, (_, i) => i + 1)
           .slice(
             currentPage * perPage - perPage,
             (currentPage + 1) * perPage - perPage,
           )
           .map((item, index) => (
             <li key={index} data-cy="item">
-              {item}
+              Item {item}
             </li>
           ))}
       </ul>
